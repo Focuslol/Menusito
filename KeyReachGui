@@ -4,7 +4,7 @@ local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxcia
 
 local venyx = library.new("Key reach Gui V2", 5013109572)
 
-	
+
 -- themes
 local themes = {
 	Background = Color3.fromRGB(24, 24, 24),
@@ -19,6 +19,7 @@ local themes = {
 local page = venyx:addPage("Reach", 4483345998)
 local a1 = page:addSection("Player Target")
 
+	
 
 --Globals
 _G.kpj = true
@@ -174,20 +175,7 @@ ex2:addToggle("infJump", nil, function(value)
 	end
 end)
 
-ex2:addToggle("Platform", nil, function(value)
-	if value == true then
-		local baseplate    = Instance.new("Part")
-		baseplate.Parent   = workspace
-		baseplate.Name = "MomentoXD"
-		baseplate.Transparency = 0.5
-		baseplate.Size     = Vector3.new(800,1,800) -- change size
-		baseplate.Anchored = true
-		baseplate.Position = Workspace.Lobby["Middle Room"].Floor.Base.Union.Position + Vector3.new(0,-110,0)
-	end
-	if value == false then
-		game.Workspace["MomentoXD"]:Destroy()
-	end
-end)
+
 
 local Antihb = venyx:addPage("Anti Hb", 5012544693)
 local Antihb = page:addSection("Antis")
@@ -581,54 +569,3 @@ Credits:addButton("Credits to - xela.j#9170 -", function()
 end)
 
 
-local a1 = page:addSection("Hi " .. Meh.Name)
-
-local ex2 = page:addSection("Hi " .. Meh.Name)
-local credits = page:addSection("More")
-section4:addButton("Exit", function()
-	venyx:Notify("Bye bye", "c:")
-	wait(0.4)
-	_G.Undermineh         = false
-	_G.Coin            = true
-	_G.UWU             = false
-	_G.infinjump       = false
-	_G.SphereActivated = false 
-	_G.Dist            = 0
-	for i,v in pairs(ct) do v:Disconnect() end
-	for i,v in next, game:GetService("CoreGui"):GetDescendants() do
-		if v:IsA("ScreenGui") and v.Name =="Key reach Gui V2" then 
-			v:Destroy() 
-		end
-	end
-end)
-section4:addButton("Rejoin", function()
-	local ts = game:GetService("TeleportService")
-	local p = game:GetService("Players").LocalPlayer
-	ts:Teleport(game.PlaceId, p)
-end)
-
-section4:addButton("Server hop!", function()
-	local HttpService, TPService = game:GetService("HttpService"), game:GetService("TeleportService")
-	local ServersToTP = HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100"))
-	for _, s in pairs(ServersToTP.data) do
-		if s.playing ~= s.maxPlayers then
-			TPService:TeleportToPlaceInstance(game.PlaceId, s.id)
-		end
-	end
-end)
-
-section4:addButton("ReloadScript", function()
-	_G.Undermineh         = false
-	_G.Coin            = true
-	_G.UWU             = false
-	_G.infinjump       = false
-	_G.SphereActivated = false 
-	_G.Dist            = 0
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/fer12321/Menusito/main/KeyReachGui"))()
-	for i,v in pairs(ct) do v:Disconnect() end
-end)
-
-section4:addKeybind("Toggle Keybind", Enum.KeyCode.LeftControl, function()
-	venyx:toggle()
-end, function()
-end)
