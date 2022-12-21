@@ -624,7 +624,7 @@ section4:addButton("ReloadScript", function()
 	_G.infinjump       = false
 	_G.SphereActivated = false 
 	_G.Dist            = 0
-	loadstring(game:HttpGet(""))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/fer12321/Menusito/main/KeyReachGui"))()
 	for i,v in pairs(ct) do v:Disconnect() end
 end)
 
