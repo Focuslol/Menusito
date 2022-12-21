@@ -1,0 +1,634 @@
+--init
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/fer12321/VenyxGUi/main/LibraryVenyxKey"))()
+
+local venyx = library.new("Key reach Gui V2", 5013109572)
+
+	
+-- themes
+local themes = {
+	Background = Color3.fromRGB(24, 24, 24),
+	Glow = Color3.fromRGB(84, 255, 5),
+	Accent = Color3.fromRGB(10, 10, 10),
+	LightContrast = Color3.fromRGB(20, 20, 20),
+	DarkContrast = Color3.fromRGB(14, 14, 14),  
+	TextColor = Color3.fromRGB(0, 255, 81)
+}
+
+-- first page
+local page = venyx:addPage("Reach", 4483345998)
+local a1 = page:addSection("Player Reach")
+
+
+--Globals
+_G.kpj = true
+_G.rangeOff = true
+_G.hgmOff = true
+
+--
+
+
+venyx:Notify("hello", game.Players.LocalPlayer.Name .. "")
+
+--Reach Player
+
+a1:addToggle("Reach Off/On", nil, function(value)
+	if value == true then
+		_G.rangeOff = false
+		_G.kpj = true
+		venyx:Notify("c:", "Player Reach On")
+	end
+	if value == false then
+		_G.rangeOff = true
+		_G.kpj = false
+		venyx:Notify(":c", "Player Reach Off")
+	end
+end)
+
+a1:addTextbox("Player", "Insert Player", function(plr)
+	local victim = plr
+
+	local player = game:GetService("Players").LocalPlayer
+
+	game:GetService"RunService".Stepped:Connect(function()
+		if _G.rangeOff then return end 
+		pcall(function()    
+			local p = game.Players:GetPlayers()
+			for i = 2, #p do local v = p[i].Character
+				if v and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 and v:FindFirstChild("HumanoidRootPart" and "Left Leg" and "Right Leg" and "Left Arm" and "Right Arm" and "Head" and "Torso") and player:DistanceFromCharacter(v["HumanoidRootPart" and "Left Leg" and "Right Leg" and "Left Arm" and "Right Arm"  and "Head" and "Torso"].Position) <= _G.range then
+					local tool = player.Character and player.Character:FindFirstChildOfClass("Tool")
+					if tool and tool:FindFirstChild("Handle") then
+						for i,v in next, v:GetChildren() do
+							if v:IsA("BasePart") then
+
+								firetouchinterest(tool.Handle,game.Players[victim].Character.Torso,0)
+								firetouchinterest(tool.Handle,game.Players[victim].Character.Torso,1)
+							end
+						end
+					end
+				end
+			end
+		end)
+	end)
+end)
+
+a1:addTextbox("Size", "Size of the reach", function(size)
+	_G.range = tonumber(size)
+end)
+
+a1:addKeybind("KeyBindHigher", Enum.KeyCode.Insert, function()
+	_G.range = _G.range + 1 
+	if _G.kpj == true then
+		game.StarterGui:SetCore("SendNotification", {
+			Title = "Reach Player";
+			Text = "Tu reach es de " .. _G.range;
+			Icon = "";
+			Duration = 1;})
+	end
+end)
+
+a1:addKeybind("KeyBindLower", Enum.KeyCode.Insert, function()
+	_G.range = _G.range - 1 
+	if _G.kpj == true then
+		game.StarterGui:SetCore("SendNotification", {
+			Title = "Reach Player";
+			Text = "Tu reach es de " .. _G.range;
+			Icon = "";
+			Duration = 1;})
+	end
+end)
+
+
+
+--Extras
+local ex = venyx:addPage("Extras", 3570695787)
+local ex2 = ex:addSection("Extras Features")
+
+
+ex2:addButton("HealthNotification", function()
+	local z = game.Players.LocalPlayer.Character.Humanoid
+
+
+	game.StarterGui:SetCore("SendNotification", {
+		Title    = "YourHealth is: "..z.Health; 
+		Text     = "MaxHealth: "..z.MaxHealth; 
+		Duration = 3;
+	})  
+end)
+
+ex2:addSlider("Walkspeed", 16, 16, 100, function(value)
+	game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (value)
+end)
+
+ex2:addSlider("JumpPower", 50, 50, 100, function(value)
+	game.Players.LocalPlayer.Character.Humanoid.JumpPower = (value)
+end)
+
+ex2:addButton("Free Vips", function()
+	AdriPart = game.workspace.Lobby["Mega VIP Room"].Teleport.Enter["Teleporter B"]
+	AdriPart:Clone().Parent = game.workspace.Lobby["Mega VIP Room"].Teleport.Enter
+	game.workspace.Lobby["Mega VIP Room"].Teleport.Enter["Teleporter B"]:Destroy()
+	wait()
+	game.workspace.Lobby["Mega VIP Room"].Teleport.Enter["Teleporter B"].Touched:Connect(function(hit)
+		local player = game.Players:GetPlayerFromCharacter(hit.Parent)
+		player.Character.HumanoidRootPart.CFrame = CFrame.new(-1.06104672, 264, 72.2138901)
+	end)
+
+	AdriPart2 = game:GetService("Workspace").Lobby["VIP Room"].Teleport.Enter["Teleporter A"]
+	AdriPart2:Clone().Parent = game:GetService("Workspace").Lobby["VIP Room"].Teleport.Enter
+	game:GetService("Workspace").Lobby["VIP Room"].Teleport.Enter["Teleporter A"]:Destroy()
+	wait()
+	game:GetService("Workspace").Lobby["VIP Room"].Teleport.Enter["Teleporter A"].Touched:Connect(function(hit)
+		local player = game.Players:GetPlayerFromCharacter(hit.Parent)
+		player.Character.HumanoidRootPart.CFrame = CFrame.new(0.324219227, 264, -69.9828949)
+	end)  
+	venyx:Notify("Enabled", "FreeVipsRooms")
+end)
+
+
+_G.infinjump = false
+ex2:addToggle("infJump", nil, function(value)
+	if value == true then
+		_G.infinjump = true
+		local Player = game:GetService("Players").LocalPlayer
+		local Mouse = Player:GetMouse()
+		Mouse.KeyDown:connect(function(k)
+			if _G.infinjump then
+				if k:byte() == 32 then
+					Humanoid = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+					Humanoid:ChangeState("Jumping")
+					wait()
+					Humanoid:ChangeState("Seated")
+				end
+			end
+
+		end)
+	end
+	if value == false then
+		if _G.infinjump == true then
+			--        k = k:lower()
+			_G.infinjump = false
+		else
+
+		end
+	end
+end)
+
+ex2:addToggle("Platform", nil, function(value)
+	if value == true then
+		local baseplate    = Instance.new("Part")
+		baseplate.Parent   = workspace
+		baseplate.Name = "MomentoXD"
+		baseplate.Transparency = 0.5
+		baseplate.Size     = Vector3.new(800,1,800) -- change size
+		baseplate.Anchored = true
+		baseplate.Position = Workspace.Lobby["Middle Room"].Floor.Base.Union.Position + Vector3.new(0,-110,0)
+	end
+	if value == false then
+		game.Workspace["MomentoXD"]:Destroy()
+	end
+end)
+
+local Antihb = venyx:addPage("Anti Hb", 5012544693)
+local Antihb = page:addSection("Antis")
+
+Antihb:addButton("Antihb(no deja coin)", function()
+	if game.Players.LocalPlayer.Character ~= nil then
+		local char = game.Players.LocalPlayer.Character
+		char.Parent = nil
+		char.HumanoidRootPart:Destroy()
+		char.Parent = workspace
+	end
+end)
+
+Antihb:addButton("Antihb(deja coin)", function()
+	local plrs= game:GetService("Players").LocalPlayer
+
+
+	if plrs.Character:FindFirstChild("HumanoidRootPart")then
+		while wait () do 
+			cloneHRP = plrs.Character.HumanoidRootPart:Clone()
+			cloneHRP.Parent = nil
+
+		end
+	else
+
+		cloneHRP.Parent = plrs.Character
+
+
+	end
+end)
+
+Antihb:addButton("Antifire", function()
+	local plr1 = game.Players.LocalPlayer
+	local char = plr1.Character
+	if char:FindFirstChild("Left Arm") and char:FindFirstChild("Left Leg") then
+		char["Left Arm"]:Destroy()
+		char["Left Leg"]:Destroy()
+	end
+end)
+
+ex2:addButton("Bug Sword", function()
+	local bc = game.Players.LocalPlayer.Backpack
+	game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+	if bc:FindFirstChild("Sword") then
+		bc.Sword.LocalSwordAnimation:Destroy()
+	end
+end)
+
+ex2:addButton("Enable/disable Christmas", function()
+	local clickdetector = game:GetService("Workspace").EnableChristmas.ClickDetector
+
+	fireclickdetector(clickdetector)
+end)
+
+ex2:addButton("Enable/disable Night", function()
+	local clickdetector = game:GetService("Workspace").ToggleNight.ClickDetector
+
+	fireclickdetector(clickdetector)
+end)
+
+-- second page
+local theme = venyx:addPage("Theme", 3570695787)
+local colors = theme:addSection("Colors")
+
+for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
+	colors:addColorPicker(theme, color, function(color3)
+		venyx:setTheme(theme, color3)
+	end)
+end
+
+local Morehb = venyx:addPage("More Hb (all players=", 5012544693)
+
+local Morehb = page:addSection("Hb")
+
+
+Morehb:addSlider("Hitbox", 2, 2, 30, function(value)
+	for i,v in pairs(game.Players:GetChildren()) do
+		if v.Name ~= game.Players.LocalPlayer.Name then
+			v.Character.HumanoidRootPart.Transparency = 0.5
+			v.Character.HumanoidRootPart.Size         = Vector3.new((value),(value),(value))
+			v.Character.HumanoidRootPart.Material     = "Plastic"
+			v.Character.HumanoidRootPart.BrickColor   = BrickColor.new("Really blue")
+			v.Character.HumanoidRootPart.CanCollide   = false
+		end
+	end
+end)
+
+Morehb:addButton("Hb (Q)", function()
+	-- Made by keyrita7
+
+
+
+	game.StarterGui:SetCore("SendNotification", {Title = "Reach Loaded.."; Text = ""; Duration = 3;})
+
+	local active = true
+	local trueActive = true
+	local reachType = "Sphere"
+	local dmgEnabled = true
+	local visualizerEnabled = false
+
+	local visualizer = Instance.new("Part")
+	visualizer.BrickColor = BrickColor.Blue()
+	visualizer.Transparency = 0.6
+	visualizer.Anchored = true
+	visualizer.CanCollide = false
+	visualizer.Size = Vector3.new(0.5,0.5,0.5)
+	visualizer.BottomSurface = Enum.SurfaceType.Smooth
+	visualizer.TopSurface = Enum.SurfaceType.Smooth
+
+	local ScreenGui = Instance.new("ScreenGui")
+	local Frame = Instance.new("Frame")
+	local TextLabel = Instance.new("TextLabel")
+	local TextBox = Instance.new("TextBox")
+	local TextLabel_2 = Instance.new("TextLabel")
+	local TextLabel_3 = Instance.new("TextLabel")
+	local TextLabel_4 = Instance.new("TextLabel")
+	local TextButton = Instance.new("TextButton")
+	local Frame_2 = Instance.new("Frame")
+	local Frame_3 = Instance.new("Frame")
+	local Frame_4 = Instance.new("Frame")
+	local Frame_5 = Instance.new("Frame")
+	local TextButton_2 = Instance.new("TextButton")
+
+	--Properties:
+
+	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	ScreenGui.DisplayOrder = 999999999
+	ScreenGui.ResetOnSpawn = false
+
+	Frame.Parent = ScreenGui
+	Frame.AnchorPoint = Vector2.new(0, 0.5)
+	Frame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+	Frame.BackgroundTransparency = 0.300
+	Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Frame.BorderSizePixel = 4
+	Frame.Position = UDim2.new(0, 0, 0.600000024, 0)
+	Frame.Size = UDim2.new(0.150000006, 0, 0.300000012, 0)
+
+	TextLabel.Parent = Frame
+	TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.BackgroundTransparency = 1.000
+	TextLabel.Size = UDim2.new(0.600000024, 0, 0.200000003, 0)
+	TextLabel.Font = Enum.Font.SourceSans
+	TextLabel.Text = "Key reach:"
+	TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.TextScaled = true
+	TextLabel.TextSize = 14.000
+	TextLabel.TextWrapped = true
+
+	TextBox.Parent = Frame
+	TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextBox.BackgroundTransparency = 1.000
+	TextBox.Position = UDim2.new(0.600000024, 0, 0, 0)
+	TextBox.Size = UDim2.new(0.400000006, 0, 0.200000003, 0)
+	TextBox.Font = Enum.Font.SourceSans
+	TextBox.Text = "3.5"
+	TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextBox.TextScaled = true
+	TextBox.TextSize = 14.000
+	TextBox.TextWrapped = true
+
+	TextLabel_2.Parent = Frame
+	TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_2.BackgroundTransparency = 1.000
+	TextLabel_2.Position = UDim2.new(0, 0, 0.200000003, 0)
+	TextLabel_2.Size = UDim2.new(0.600000024, 0, 0.200000003, 0)
+	TextLabel_2.Font = Enum.Font.SourceSans
+	TextLabel_2.Text = "Shape:"
+	TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_2.TextScaled = true
+	TextLabel_2.TextSize = 14.000
+	TextLabel_2.TextWrapped = true
+
+	TextLabel_3.Parent = Frame
+	TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_3.BackgroundTransparency = 1.000
+	TextLabel_3.Position = UDim2.new(0, 0, 0.400000006, 0)
+	TextLabel_3.Size = UDim2.new(0.600000024, 0, 0.200000003, 0)
+	TextLabel_3.Font = Enum.Font.SourceSans
+	TextLabel_3.Text = "Damage:"
+	TextLabel_3.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_3.TextScaled = true
+	TextLabel_3.TextSize = 14.000
+	TextLabel_3.TextWrapped = true
+
+	TextLabel_4.Parent = Frame
+	TextLabel_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_4.BackgroundTransparency = 1.000
+	TextLabel_4.Position = UDim2.new(0, 0, 0.600000024, 0)
+	TextLabel_4.Size = UDim2.new(0.600000024, 0, 0.200000003, 0)
+	TextLabel_4.Font = Enum.Font.SourceSans
+	TextLabel_4.Text = "Visualizer:"
+	TextLabel_4.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_4.TextScaled = true
+	TextLabel_4.TextSize = 14.000
+	TextLabel_4.TextWrapped = true
+
+	TextButton.Parent = Frame
+	TextButton.AnchorPoint = Vector2.new(0, 1)
+	TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextButton.BackgroundTransparency = 1.000
+	TextButton.Position = UDim2.new(0, 0, 1, 0)
+	TextButton.Size = UDim2.new(1, 0, 0.150000006, 0)
+	TextButton.Font = Enum.Font.SourceSansBold
+	TextButton.Text = "Kill Script"
+	TextButton.TextColor3 = Color3.fromRGB(222, 222, 222)
+	TextButton.TextScaled = true
+	TextButton.TextSize = 14.000
+	TextButton.TextWrapped = true
+
+	Frame_2.Parent = Frame
+	Frame_2.Active = true
+	Frame_2.AnchorPoint = Vector2.new(0, 0.5)
+	Frame_2.BackgroundColor3 = Color3.fromRGB(0, 12, 175)
+	Frame_2.BorderSizePixel = 0
+	Frame_2.Position = UDim2.new(0.725000024, 0, 0.699999988, 0)
+	Frame_2.Size = UDim2.new(0, 25, 0, 25)
+	Frame_2.ZIndex = 5
+
+	Frame_3.Parent = Frame_2
+	Frame_3.AnchorPoint = Vector2.new(0.5, 0.5)
+	Frame_3.BackgroundColor3 = Color3.fromRGB(255, 76, 76)
+	Frame_3.BorderSizePixel = 0
+	Frame_3.LayoutOrder = 1
+	Frame_3.Position = UDim2.new(0.5, 0, 0.5, 0)
+
+	Frame_4.Parent = Frame
+	Frame_4.Active = true
+	Frame_4.AnchorPoint = Vector2.new(0, 0.5)
+	Frame_4.BackgroundColor3 = Color3.fromRGB(0, 12, 175)
+	Frame_4.BorderSizePixel = 0
+	Frame_4.Position = UDim2.new(0.725000024, 0, 0.5, 0)
+	Frame_4.Size = UDim2.new(0, 25, 0, 25)
+	Frame_4.ZIndex = 5
+
+	Frame_5.Parent = Frame_4
+	Frame_5.AnchorPoint = Vector2.new(0.5, 0.5)
+	Frame_5.BackgroundColor3 = Color3.fromRGB(255, 76, 76)
+	Frame_5.BorderSizePixel = 0
+	Frame_5.LayoutOrder = 1
+	Frame_5.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Frame_5.Size = UDim2.new(1, 0, 1, 0)
+
+	TextButton_2.Parent = Frame
+	TextButton_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextButton_2.BackgroundTransparency = 1.000
+	TextButton_2.Position = UDim2.new(0.600000024, 0, 0.200000003, 0)
+	TextButton_2.Size = UDim2.new(0.400000006, 0, 0.200000003, 0)
+	TextButton_2.Font = Enum.Font.SourceSans
+	TextButton_2.Text = "Sphere"
+	TextButton_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextButton_2.TextScaled = true
+	TextButton_2.TextSize = 14.000
+	TextButton_2.TextWrapped = true
+
+	repeat wait() until game.Players.LocalPlayer
+	ScreenGui.Parent = game:GetService("CoreGui")
+
+
+
+	Frame_4.InputBegan:connect(function(inp)
+		if inp.UserInputType == Enum.UserInputType.MouseButton1 then
+			dmgEnabled = not dmgEnabled
+			local goal = {Size = UDim2.new(0,0,0,0)}
+			if dmgEnabled then
+				goal = {Size = UDim2.new(1,0,1,0)}
+			end
+			game:GetService("TweenService"):Create(Frame_5,TweenInfo.new(0.12,Enum.EasingStyle.Quad),goal):Play()
+		end
+	end)
+	Frame_2.InputBegan:connect(function(inp)
+		if inp.UserInputType == Enum.UserInputType.MouseButton1 then
+			visualizerEnabled = not visualizerEnabled	
+			local goal = {Size = UDim2.new(0,0,0,0)}
+			if visualizerEnabled then
+				goal = {Size = UDim2.new(1,0,1,0)}
+			end
+			game:GetService("TweenService"):Create(Frame_3,TweenInfo.new(0.12,Enum.EasingStyle.Linear),goal):Play()
+		end
+	end)
+	TextButton_2.MouseButton1Click:connect(function()
+		if reachType == "Sphere" then
+			reachType = "Line"
+		else
+			reachType = "Sphere"
+		end
+		TextButton_2.Text = reachType
+	end)
+	TextButton.MouseButton1Click:connect(function()
+		trueActive = false
+		ScreenGui:Destroy()
+	end)
+	game:GetService("UserInputService").InputBegan:connect(function(inp,gpe)
+		if gpe then return end
+		if inp.KeyCode == Enum.KeyCode.Q then
+			ScreenGui.Enabled = not ScreenGui.Enabled
+		end
+	end)
+
+	local plr = game.Players.LocalPlayer
+
+	local function onHit(hit,handle)
+		local victim = hit.Parent:FindFirstChildOfClass("Humanoid")
+		if victim and victim.Parent.Name ~= game.Players.LocalPlayer.Name then
+			if dmgEnabled then
+				for _,v in pairs(hit.Parent:GetChildren()) do
+					if v:IsA("Part") then
+						firetouchinterest(v,handle,0)
+						firetouchinterest(v,handle,1)
+					end
+				end
+			else
+				firetouchinterest(hit,handle,0)
+				firetouchinterest(hit,handle,1)
+			end
+		end
+	end
+
+	local function getWhiteList()
+		local wl = {}
+		for _,v in pairs(game.Players:GetPlayers()) do
+			if v ~= plr then
+				local char = v.Character
+				if char then
+					for _,q in pairs(char:GetChildren()) do
+						if q:IsA("Part") then
+							table.insert(wl,q)
+						end
+					end
+				end
+			end
+		end
+		return wl
+	end
+
+	game:GetService("RunService").RenderStepped:connect(function()
+		if not active or not trueActive then return end
+		local s = plr.Character and plr.Character:FindFirstChildOfClass("Tool")
+		if not s then visualizer.Parent = nil end
+		if s then
+			local handle = s:FindFirstChild("Handle") or s:FindFirstChildOfClass("Part")
+			if handle then
+				if visualizerEnabled then
+					visualizer.Parent = workspace
+				else
+					visualizer.Parent = nil
+				end
+				local reach = tonumber(TextBox.Text)
+				if reach then
+					if reachType == "Sphere" then
+						visualizer.Shape = Enum.PartType.Ball
+						visualizer.Size = Vector3.new(reach,reach,reach)
+						visualizer.CFrame = handle.CFrame
+						for _,v in pairs(game.Players:GetPlayers()) do
+							local hrp = v.Character and v.Character:FindFirstChild("HumanoidRootPart")
+							if hrp and handle then
+								local mag = (hrp.Position-handle.Position).magnitude
+								if mag <= reach then
+									onHit(hrp,handle)
+								end
+							end
+						end
+					elseif reachType == "Line" then
+						local origin = (handle.CFrame*CFrame.new(0,0,-2)).p
+						local ray = Ray.new(origin,handle.CFrame.lookVector*-reach)
+						local p,pos = workspace:FindPartOnRayWithWhitelist(ray,getWhiteList())
+						visualizer.Shape = Enum.PartType.Block
+						visualizer.Size = Vector3.new(1,0.8,reach)
+						visualizer.CFrame = handle.CFrame*CFrame.new(0,0,(reach/2)+2)
+						if p then
+							onHit(p,handle)
+						else
+							for _,v in pairs(handle:GetTouchingParts()) do
+								onHit(v,handle)
+							end
+						end
+					end
+				end
+			end
+		end
+	end)
+end)
+
+
+--Credits
+local page = venyx:addPage("Credits", 5012544693)
+local Credits = page:addSection("Credits")
+Credits:addButton("Credits to - xela.j#9170 -", function()
+	setclipboard("xela.j#9170")
+	venyx:Notify("Copied", "User")
+end)
+
+
+local a1 = page:addSection("Hi " .. Meh.Name)
+
+local ex2 = page:addSection("Hi " .. Meh.Name)
+local credits = page:addSection("More")
+section4:addButton("Exit", function()
+	venyx:Notify("Bye bye", "c:")
+	wait(0.4)
+	_G.Undermineh         = false
+	_G.Coin            = true
+	_G.UWU             = false
+	_G.infinjump       = false
+	_G.SphereActivated = false 
+	_G.Dist            = 0
+	for i,v in pairs(ct) do v:Disconnect() end
+	for i,v in next, game:GetService("CoreGui"):GetDescendants() do
+		if v:IsA("ScreenGui") and v.Name =="Key reach Gui V2" then 
+			v:Destroy() 
+		end
+	end
+end)
+section4:addButton("Rejoin", function()
+	local ts = game:GetService("TeleportService")
+	local p = game:GetService("Players").LocalPlayer
+	ts:Teleport(game.PlaceId, p)
+end)
+
+section4:addButton("Server hop!", function()
+	local HttpService, TPService = game:GetService("HttpService"), game:GetService("TeleportService")
+	local ServersToTP = HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100"))
+	for _, s in pairs(ServersToTP.data) do
+		if s.playing ~= s.maxPlayers then
+			TPService:TeleportToPlaceInstance(game.PlaceId, s.id)
+		end
+	end
+end)
+
+section4:addButton("ReloadScript", function()
+	_G.Undermineh         = false
+	_G.Coin            = true
+	_G.UWU             = false
+	_G.infinjump       = false
+	_G.SphereActivated = false 
+	_G.Dist            = 0
+	loadstring(game:HttpGet(""))()
+	for i,v in pairs(ct) do v:Disconnect() end
+end)
+
+section4:addKeybind("Toggle Keybind", Enum.KeyCode.LeftControl, function()
+	venyx:toggle()
+end, function()
+end)
