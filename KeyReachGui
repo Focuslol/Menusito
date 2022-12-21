@@ -1,6 +1,6 @@
 --init
 
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/fer12321/VenyxGUi/main/LibraryVenyxKey"))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))()
 
 local venyx = library.new("Key reach Gui V2", 5013109572)
 
