@@ -177,7 +177,7 @@ end)
 
 
 
-local Antihb = venyx:addPage("Anti Hb", 5012544693)
+
 local Antihb = page:addSection("Antis")
 
 Antihb:addButton("Antihb(no deja coin)", function()
