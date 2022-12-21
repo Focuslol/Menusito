@@ -17,7 +17,7 @@ local themes = {
 
 -- first page
 local page = venyx:addPage("Reach", 4483345998)
-local a1 = page:addSection("Player Reach")
+local a1 = page:addSection("Player Target")
 
 
 --Globals
