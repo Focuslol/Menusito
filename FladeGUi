@@ -16,12 +16,9 @@ TextColor = Color3.fromRGB(255, 255, 255)
 local page = venyx:addPage("Main", 5012544693)
 local Meh = game.Players.LocalPlayer
 local section1 = page:addSection("Hola ".. Meh.Name)
-local section3 = page:addSection("Display name : ".. game.player.DisplayName)
-local section2 = page:addSection("Tu id : .. game.Players.LocalPlayer.UserId")
+local section3 = page:addSection("Tu id : ".. game.Players.LocalPlayer.UserId)
 
-local section3 = page:addSection("Id del juego : ".. game.PlaceId)
-
-local section1 = page:addSection("Made by keyrita7 ")
+local section4 = page:addSection("Id del juego : ".. game.PlaceId)
 
 local page = venyx:addPage("Reach", 4483345998)
 local a1 = page:addSection("Player Target")
